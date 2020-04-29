@@ -25,7 +25,22 @@ const CREATE_PASTE = gql`
             language: $language,
             expiresAfter: $expiresAfter
         }) {
+            createdAt
+            text
             url
+            title
+            isPublic
+        }
+    }
+`;
+
+const GET_RECENT_PASTES = gql`
+    query GetRecentPastes($count: Int!) {
+        getRecentPastes(count: $count) {
+            createdAt
+            text
+            url
+            title
         }
     }
 `;
@@ -94,7 +109,20 @@ const languages = ["abap", "abnf", "actionscript", "ada", "apacheconf", "apl", "
 
 function NewPasteForm(props) {
     let [isUrlValid, setUrlValid] = useState(true);
-    const [createPaste, { data, loading, error }] = useMutation(CREATE_PASTE);
+    const [createPaste, { data, loading, error }] = useMutation(CREATE_PASTE, {
+        update(cache, { data: { createPaste } }) {
+            let pastes = cache.readQuery({ query: GET_RECENT_PASTES, variables: {count: 9}}).getRecentPastes;
+            if (!createPaste.isPublic) return;
+            if (pastes.length === 9) {
+                pastes.pop();
+            }
+            pastes.unshift(createPaste);
+            cache.writeQuery({
+                query: GET_RECENT_PASTES,
+                data: { getRecentPastes: pastes },
+            });
+        }
+    });
     const {handleSubmit, handleInputChange, inputs} = useCreatePasteForm(() => {
         let preparedInputs = {...inputs};
         for (let name in preparedInputs) {
@@ -106,14 +134,10 @@ function NewPasteForm(props) {
             }
         }
         preparedInputs.expiresAfter = Number.parseInt(preparedInputs.expiresAfter);
-        console.log('SENDING::::', preparedInputs);
         createPaste({
             variables: preparedInputs
         }).then(result => console.log("RESULT:::", result)).catch(() => {});
     });
-    console.log("Location: ", window.location);
-    console.log("DATA::", data, "loading:", loading, "errror:::", error)
-
 
     return (
         <Form onSubmit={handleSubmit}>

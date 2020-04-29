@@ -1,12 +1,8 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {
-    Badge,
     Button,
-    CardColumns,
     Col,
     Container,
-    Form,
-    InputGroup,
     OverlayTrigger,
     Row,
     Tooltip
@@ -14,7 +10,6 @@ import {
 import Card from "react-bootstrap/Card";
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {atomDark} from 'react-syntax-highlighter/dist/esm/styles/prism';
-import Overlay from "react-bootstrap/Overlay";
 import {FullscreenLoading} from "../components/FullscreenLoading";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
@@ -49,7 +44,7 @@ const INCREMENT_VIEWS = gql`
 `;
 
 function formatDate(timestamp) {
-    if (timestamp == "8640000000000000") {
+    if (timestamp === "8640000000000000") {
         return "∞ days";
     }
     const date = (timestamp - new Date()) / 1000; // date - number of seconds before expiration.
@@ -87,9 +82,8 @@ function ViewPaste(props) {
     const [clipboardText, setClipboardText] = useState('');
     const clipboard = useRef(null);
 
-    console.log("STILL HEREEEEE");
     if (error) {
-        if (error?.graphQLErrors[0]?.extensions.exception?.status == 404) {
+        if (error?.graphQLErrors[0]?.extensions.exception?.status === 404) {
             return <Redirect to="/404"/>
         } else {
             return <Redirect to="/500"/>
@@ -112,9 +106,6 @@ function ViewPaste(props) {
     if (!error && !loading && !viewsUpdated) {
         incrementViews({variables: {url}}).catch(() => {});
         setViewsUpdated(true);
-    }
-    if (error) {
-        console.log("NET:", error.networkError, "code:", error.graphQLErrors, "STATUS:", error?.graphQLErrors[0]?.extensions.exception?.status);
     }
 
     const preparedData = {...data?.getPasteByUrl};

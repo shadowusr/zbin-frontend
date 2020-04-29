@@ -18,7 +18,6 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route path="/" render={props => {
-                    console.log(props);
                     return <MainLayout {...props} />
                 }}/>
             </Switch>

@@ -1,7 +1,7 @@
 import React from "react";
 import MainPage from "../pages/Main";
 import ViewPastePage from "../pages/ViewPaste";
-import {Route, Switch, Redirect, Link} from "react-router-dom";
+import {Route, Switch, Link} from "react-router-dom";
 import {Col, Container, Navbar, NavbarBrand, Row} from "react-bootstrap";
 import "@fortawesome/fontawesome-free/css/all.css";
 import {ErrorOverlay} from "../components/ErrorOverlay";
@@ -40,7 +40,7 @@ class Main extends React.Component {
                             <h1 className="brand-name">zbin</h1>
                         </Col>
                         <Col className="links d-flex align-items-center justify-content-end">
-                            <a href="https://github.com/shadowusr/" target="_blank"><i className="fab fa-github"/>Github</a>
+                            <a href="https://github.com/shadowusr/" target="_blank" rel="noopener noreferrer"><i className="fab fa-github"/>Github</a>
                         </Col>
                     </Row>
                 </Container>

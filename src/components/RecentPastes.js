@@ -48,10 +48,15 @@ function formatDate(date) {
 }
 
 function RecentPastes(props) {
-    const {loading, error, data} = useQuery(GET_RECENT_PASTES, {
+    const {/*loading,*/ error, data} = useQuery(GET_RECENT_PASTES, {
         variables: {count: 9},
+        pollInterval: 30000,
     });
-    //let data;
+
+    if (error) {
+        return null;
+    }
+
     const getRandomSkeleton = () => {
         let result = [];
         let count = getRandomInt(2, 6);
@@ -59,11 +64,12 @@ function RecentPastes(props) {
             result.push(<Skeleton key={i} width={getRandomInt(150, 260)}/>);
         }
         return result
-    }
+    };
     return (
         <div className="recent-pastes">
             <h5><i className="far fa-file-alt"/>Recent pastes</h5>
-
+            {data?.getRecentPastes && data?.getRecentPastes.length === 0 &&
+            <p className="no-pastes-message">No pastes've been created recently. You can create the first one!</p>}
             <CardColumns>
                 {data?.getRecentPastes ? <>
                         {data.getRecentPastes.map((paste) => {

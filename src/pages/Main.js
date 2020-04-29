@@ -1,28 +1,10 @@
 import React from "react";
-import {
-    Button,
-    CardColumns,
-    Col,
-    Container,
-    Form,
-    InputGroup,
-    OverlayTrigger,
-    Row,
-    Spinner,
-    Tooltip
-} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import {NewPasteForm} from "../components/NewPasteForm";
 import {RecentPastes} from "../components/RecentPastes";
 
 class Main extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
-
-
     render() {
         return (
             <>

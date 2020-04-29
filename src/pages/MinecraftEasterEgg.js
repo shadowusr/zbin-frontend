@@ -4,7 +4,7 @@ import minecraftHeart from '../assets/svg/heart.svg';
 function MinecraftEasterEgg(props) {
     return (
         <div className="minecraft-easter-egg">
-            <h5><img className="minecraft-heart" src={minecraftHeart}/> minecraft</h5>
+            <h5><img className="minecraft-heart" src={minecraftHeart} alt="heart"/> minecraft</h5>
             <div className="enderman">
                 <div className="head">
                     <div className="front">
