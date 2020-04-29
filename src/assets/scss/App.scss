@@ -1,0 +1,20 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Poppins|Lato');
+
+@import "~bootstrap/scss/bootstrap";
+
+@import "layouts/Main";
+
+@import "pages/Main";
+@import "pages/ViewPaste";
+@import "pages/MinecraftEasterEgg";
+
+@import "components/Button";
+@import "components/Card";
+@import "components/Form";
+@import "components/Navbar";
+@import "components/UrlAvailabilityStatus";
+@import "components/CreatePasteStatus";
+@import "components/FullscreenLoading";
+@import "components/ErrorOverlay";
+@import "components/RecentPastes";

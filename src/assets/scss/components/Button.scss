@@ -1,0 +1,24 @@
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: opacity .3s ease;
+  &:focus {
+     box-shadow: none !important;
+   }
+  &:hover {
+    opacity: .85;
+  }
+  &.btn-primary {
+    background-color: #714cff;
+    &:active {
+      background-color: #7e73ff !important;
+    }
+  }
+  &.btn-secondary {
+    background-color: #3b5dff;
+    &:active {
+      background-color: #5268ff !important;
+    }
+  }
+}

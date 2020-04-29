@@ -1,0 +1,92 @@
+html {
+  background-color: #000;
+}
+
+body {
+  background: radial-gradient(circle at top right, rgba(0,32,61,1) 0%, rgb(11, 0, 27) 65%, rgba(5,0,23,1) 100%);
+  font-family: Lato, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #fff;
+  font-family: Poppins, sans-serif;
+}
+
+.content-wrapper {
+  position: relative;
+}
+
+.footer {
+  font-family: Poppins, sans-serif;
+  position: relative;
+  z-index: 100;
+  .author-name {
+    color: rgba(255, 255, 255, .7);
+    font-size: .8rem;
+    margin-bottom: 5px;
+  }
+  .links {
+    font-size: 1.2rem;
+    a {
+      color: #7e73ff;
+      transition: color .3s ease;
+      &:hover {
+        color: #9c90ff;
+        text-decoration: none;
+      }
+    }
+    i {
+      margin-right: 5px;
+    }
+  }
+}
+
+.footer-bg {
+  background-color: #000;
+  border-top: 2px solid #7e73ff;
+  bottom: 0;
+  height: 100px;
+  left: 0;
+  width: 100vw;
+  position: absolute;
+  z-index: 0;
+}
+
+// Glitchy text implementation
+
+@mixin gitchText($offset, $text) {
+  content: $text;
+  position: absolute;
+  left: $offset;
+  top: $offset;
+  clip: rect(0, 900px, 0, 0);
+  background-color: #000;
+  color: #fff;
+  animation: glitch 3s infinite alternate-reverse;
+  animation-delay: 4s;
+}
+
+.footer .brand-name {
+  color: #fff;
+  background-color: #000;
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 42px;
+  position: relative;
+  user-select: none;
+  &:after {
+    @include gitchText(1px, 'zbin');
+  }
+  &:before {
+    @include gitchText(-1px, 'zbin');
+  }
+}
+
+@keyframes glitch {
+  $steps: 20;
+  @for $i from 0 through $steps{
+    #{percentage($i * (1 / $steps))}{
+      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+    }
+  }
+}

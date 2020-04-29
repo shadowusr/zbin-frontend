@@ -1,0 +1,22 @@
+.url-availability-status {
+  flex-basis: 100%;
+  color: rgba(255, 255, 255, .5);
+  display: flex;
+  align-items: center;
+  transition: color .1s ease;
+  .spinner-border {
+    width: .8em;
+    height: .8em;
+    border-width: .15em;
+    margin-right: 5px;
+  }
+  &.error {
+    color: #ff6d2c;
+  }
+  &.success {
+    color: #16e67d;
+  }
+  &.busy {
+    color: #ff314d;
+  }
+}

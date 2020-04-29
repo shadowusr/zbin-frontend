@@ -1,0 +1,250 @@
+.minecraft-easter-egg {
+  overflow: hidden;
+  .minecraft-heart {
+    width: 1em;
+  }
+  h5 {
+    display: flex;
+    justify-content: center;
+    img {
+      margin: 0 5px;
+    }
+  }
+  .credit {
+    color: rgba(255, 255, 255, .5);
+    display: flex;
+    justify-content: center;
+    a {
+      margin: 0 5px;
+    }
+  }
+  .enderman {
+    animation: headRotate 4s infinite alternate forwards;
+    height: 700px;
+    margin: 80px auto 0 auto;
+    perspective: 800px;
+    perspective-origin: -30% 200px;
+    position: relative;
+    width: 200px;
+  }
+
+  // head
+
+  .head {
+    background: black;
+    margin: 0 auto;
+    position: relative;
+    transform-style: preserve-3d;
+    width: 150px;
+  }
+  .head div {
+    height: 90px;
+    position: absolute;
+    width: 100px;
+    z-index: 100;
+  }
+  .right {
+    background: black;
+    transform: rotateY(-270deg) translateX(0);
+    transform-origin: top right;
+  }
+  .left {
+    background: black;
+    transform: rotateY(270deg) translateX(0);
+    transform-origin: center left;
+  }
+  .bottom {
+    background: black;
+    transform: rotateX(90deg) translateY(100px);
+    transform-origin: bottom center;
+  }
+  .front {
+    background: black;
+    transform: translateZ(100px);
+  }
+  .right-eye {
+    background: lighten(#F769FA, 20%);
+    height: 10px;
+    position: absolute;
+    bottom: 20px; left: 0;
+    width: 40px;
+
+    &::before {
+      background: lighten(#E500FD, 20%);
+      content: "";
+      height: 10px;
+      margin-left: -5px;
+      position: absolute;
+      top: 0; left: 50%;
+      width: 10px;
+    }
+  }
+  .left-eye {
+    background: lighten(#F769FA, 20%);
+    height: 10px;
+    position: absolute;
+    bottom: 20px; right: 0;
+    width: 40px;
+
+    &::before {
+      background: lighten(#E500FD, 20%);
+      content: "";
+      height: 10px;
+      margin-left: -5px;
+      position: absolute;
+      top: 0; left: 50%;
+      width: 10px;
+    }
+  }
+
+  // body
+
+  .enderman-body {
+    background: black;
+    height: 150px;
+    position: absolute;
+    top: 85px; left: 25px;
+    width: 120px;
+
+    &::before {
+      background: black;
+      content: "";
+      height: 20px;
+      margin-left: -40px;
+      position: absolute;
+      top: -15px; left: 50%;
+      width: 80px;
+    }
+  }
+
+  // arms
+
+  .left-arm {
+    animation: leftArm 2s infinite alternate forwards;
+    background: black;
+    height: 400px;
+    position: absolute;
+    top: 85px; left: -5px;
+    transform: rotate(5deg);
+    width: 25px;
+  }
+  .right-arm {
+    animation: rightArm 2s infinite alternate backwards;
+    animation-delay: 1s;
+    background: black;
+    height: 400px;
+    position: absolute;
+    top: 85px; right: 20px;
+    transform: rotate(-5deg);
+    width: 25px;
+  }
+
+  // legs
+
+  .left-leg {
+    background: black;
+    box-shadow: -5px -5px 0 0 black;
+    height: 430px;
+    position: absolute;
+    top: 200px; left: 50px;
+    transform: rotate(-3deg);
+    width: 25px;
+    animation: rightLeg 0.15s infinite alternate backwards;
+    animation-delay: 1s;
+
+    &::after {
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid black;
+      content: "";
+      height: 0;
+      position: absolute;
+      bottom: 0; left: -3px;
+      transform: rotate(-35deg);
+      width: 0;
+    }
+  }
+  .right-leg {
+    animation: rightLeg 0.15s infinite alternate backwards;
+    background: black;
+    box-shadow: -5px -5px 0 0 black;
+    height: 380px;
+    position: absolute;
+    top: 200px; right: 70px;
+    transform: rotate(2deg);
+    width: 25px;
+
+    &::after {
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid black;
+      content: "";
+      height: 0;
+      position: absolute;
+      bottom: 0; left: -3px;
+      transform: rotate(-35deg);
+      width: 0;
+    }
+  }
+
+  // ender dust
+
+  .ender-dust {
+    height: 700px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+  }
+  .particle {
+    animation: particle 0.65s infinite alternate forwards;
+    background: #B83DCD;
+    height: 20px;
+    list-style: none;
+    position: absolute;
+    width: 20px;
+  }
+  @for $i from 1 through 8 {
+    .particle:nth-child(#{$i}) {
+      $size: random(12px);
+      $color: random(10%);
+      $delay: random(2);
+      top: random(50px) - 1%;
+      left: random(100px) - 10%;
+      width: $size + px;
+      height: $size + px;
+      animation-delay: 0.8 * $i + s;
+      background: lighten(#B83DCD, $color);
+    }
+  }
+
+  // animations
+
+  @keyframes headRotate {
+    0% {perspective-origin: -30% 150px;}
+    50% {perspective-origin: -60% 150px;}
+    100% {perspective-origin: 100% 150px;}
+  }
+  @keyframes leftArm {
+    0% {transform: translate(10px, 0px);}
+    50% {transform: translate(12px, 0px);}
+    1000% {transform: translate(10px, 0px);}
+  }
+  @keyframes rightArm {
+    0% {transform: translate(-10px, 0px);}
+  }
+
+  @keyframes leftLeg {
+    0% {top: 185px;}
+  }
+
+  @keyframes rightLeg{
+    0% {top: 190px;}
+  }
+  @keyframes particle {
+    0%{opacity: 1;}
+    100%{opacity: 0;}
+  }
+
+
+}
