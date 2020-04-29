@@ -9,12 +9,11 @@
       margin-left: -20px;
 
       li {
-        display: inline;
+        display: inline-block;
         list-style: none;
         border-left: 2px solid rgba(255, 255, 255, .5);
         margin-left: 10px;
         padding-left: 10px;
-        white-space: nowrap;
 
         i {
           margin-right: 5px;
