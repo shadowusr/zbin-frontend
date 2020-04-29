@@ -12,6 +12,8 @@
     "apollo-boost": "^0.4.7",
     "bootstrap": "^4.4.1",
     "css-loader": "^3.5.2",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
     "file-loader": "^6.0.0",
     "graphql": "^15.0.0",
     "html-webpack-plugin": "^4.2.0",
