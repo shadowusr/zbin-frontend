@@ -3,7 +3,7 @@
   "name": "zbin-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "/",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@fortawesome/fontawesome-free": "^5.13.0",
