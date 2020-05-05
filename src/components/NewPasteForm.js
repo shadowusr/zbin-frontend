@@ -157,7 +157,7 @@ function NewPasteForm(props) {
             <Form.Label htmlFor="basic-url">Paste URL</Form.Label>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                    <InputGroup.Text id="paste-url-prefix">zbin.tk/</InputGroup.Text>
+                    <InputGroup.Text id="paste-url-prefix">{window.location.host + '/'}</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control id="paste.URL" aria-describedby="paste-url-prefix"
                               placeholder="(optional)" name="url"
