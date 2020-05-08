@@ -15,6 +15,15 @@ function renderTooltip(props) {
     );
 }
 
+function renderUrlTooltip(expiresAfter) {
+    return (props) => (
+        <Tooltip id="button-tooltip" {...props} className={expiresAfter === '-1' ? '' : 'd-none'}>
+            Custom URLs are not available for pastes with max expiration time.<br/>
+            Pick another expiration time to activate custom URLs.
+        </Tooltip>
+    );
+}
+
 const CREATE_PASTE = gql`
     mutation CreatePaste($text: String!, $title: String, $isPublic: Boolean, $url: String, $language: String, $expiresAfter: Int) {
         createPaste(pasteInput: {
@@ -51,7 +60,7 @@ const useCreatePasteForm = (callback) => {
         title: "",
         url: "",
         language: "",
-        expiresAfter: (60 * 60).toString(),
+        expiresAfter: (-1).toString(),
         isPublic: true
     });
     const handleSubmit = (event) => {
@@ -109,9 +118,9 @@ const languages = ["abap", "abnf", "actionscript", "ada", "apacheconf", "apl", "
 
 function NewPasteForm(props) {
     let [isUrlValid, setUrlValid] = useState(true);
-    const [createPaste, { data, loading, error }] = useMutation(CREATE_PASTE, {
-        update(cache, { data: { createPaste } }) {
-            let pastes = cache.readQuery({ query: GET_RECENT_PASTES, variables: {count: 9}}).getRecentPastes;
+    const [createPaste, {data, loading, error}] = useMutation(CREATE_PASTE, {
+        update(cache, {data: {createPaste}}) {
+            let pastes = cache.readQuery({query: GET_RECENT_PASTES, variables: {count: 9}}).getRecentPastes;
             if (!createPaste.isPublic) return;
             if (pastes.length === 9) {
                 pastes.pop();
@@ -119,7 +128,7 @@ function NewPasteForm(props) {
             pastes.unshift(createPaste);
             cache.writeQuery({
                 query: GET_RECENT_PASTES,
-                data: { getRecentPastes: pastes },
+                data: {getRecentPastes: pastes},
             });
         }
     });
@@ -136,7 +145,8 @@ function NewPasteForm(props) {
         preparedInputs.expiresAfter = Number.parseInt(preparedInputs.expiresAfter);
         createPaste({
             variables: preparedInputs
-        }).then(result => console.log("RESULT:::", result)).catch(() => {});
+        }).then(result => {}).catch(() => {
+        });
     });
 
     return (
@@ -159,11 +169,17 @@ function NewPasteForm(props) {
                 <InputGroup.Prepend>
                     <InputGroup.Text id="paste-url-prefix">{window.location.host + '/'}</InputGroup.Text>
                 </InputGroup.Prepend>
-                <Form.Control id="paste.URL" aria-describedby="paste-url-prefix"
-                              placeholder="(optional)" name="url"
-                              value={inputs.url} onChange={handleInputChange}
-                              disabled={inputs.expiresAfter === "-1"}
-                />
+                <OverlayTrigger
+                    placement="top"
+                    delay={{show: 250, hide: 400}}
+                    overlay={renderUrlTooltip(inputs.expiresAfter)}
+                >
+                    <Form.Control id="paste.URL" aria-describedby="paste-url-prefix"
+                                  placeholder="(optional)" name="url"
+                                  value={inputs.url} onChange={handleInputChange}
+                                  disabled={inputs.expiresAfter === "-1"}
+                    />
+                </OverlayTrigger>
                 <UrlAvailabilityStatus url={inputs.url} isUrlValid={(value) => setUrlValid(value)}/>
             </InputGroup>
             <Form.Group controlId="paste.expirationTime">
